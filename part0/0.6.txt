@@ -1,0 +1,12 @@
+participant User
+participant Browser
+participant Server
+
+User->Browser: Fills in the input and clicks "save"
+activate Browser
+note over Browser: spa.js adds a new note to the notes array, then adds it to the <ul> node
+Browser->Server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/spa
+activate Server
+Server-->Browser: {"message":"note created"}
+deactivate Server
+deactivate Browser
