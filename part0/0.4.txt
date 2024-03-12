@@ -1,0 +1,35 @@
+participant Browser
+participant Server
+
+Note over Browser: The user types something into the text field and clicks the Save button
+
+Browser->>Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+activate Server
+Note over Server: The server saves the new note
+deactivate Server
+
+Note over Browser: The browser reloads, triggering a new call to the server
+
+Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+activate Server
+Server-->>Browser: HTML document
+deactivate Server
+   
+Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+activate Server
+Server-->>Browser: CSS file
+deactivate Server
+
+Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+activate Server
+Server-->>Browser: JavaScript file
+deactivate Server
+
+Note over Browser: The browser starts executing the JavaScript code that requests the JSON from the server
+
+Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+activate Server
+Server-->>Browser: [{ "content": "HTML is easy", "date": "2024-04-02" }, ... , { "content": "The new note", "date": "2024-3-12" }]
+deactivate Server
+
+Note over Browser: The browser executes the callback function that renders the notes
