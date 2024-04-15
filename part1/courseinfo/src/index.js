@@ -59,8 +59,8 @@ const App = () => {
   return (
    <div>
      <Header course={course} />
-     <Content parts={parts} />
-     <Total parts={parts} />
+     <Content parts={course.parts} />
+     <Total parts={course.parts} />
    </div>
   )
 }
