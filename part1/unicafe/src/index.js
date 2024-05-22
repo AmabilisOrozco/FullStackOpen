@@ -1,17 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
+// Component for individual buttons
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
+
+// Component to display statistics
+const Statistics = ({ good, neutral, bad }) => (
+  <div>
+    <div>good {good}</div>
+    <div>neutral {neutral}</div>
+    <div>bad {bad}</div>
+  </div>
+);
+
+const App = () => {
+  // State hooks for each feedback type
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+
+  // Handler function for button clicks
+  const handleButtonClick = (type) => () => {
+    if (type === 'good') {
+      setGood(good + 1);
+    } else if (type === 'neutral') {
+      setNeutral(neutral + 1);
+    } else if (type === 'bad') {
+      setBad(bad + 1);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Give Feedback</h1>
+      <Button onClick={handleButtonClick('good')} text='Good' />
+      <Button onClick={handleButtonClick('neutral')} text='Neutral' />
+      <Button onClick={handleButtonClick('bad')} text='Bad' />
+      <h2>Statistics</h2>
+      <Statistics good={good} neutral={neutral} bad={bad} />
+    </div>
+  );
+};
+
+// Render the App component to the DOM
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
