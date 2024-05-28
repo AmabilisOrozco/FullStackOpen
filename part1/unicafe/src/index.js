@@ -5,13 +5,33 @@ import ReactDOM from 'react-dom/client';
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
 // Component to display statistics
-const Statistics = ({ good, neutral, bad }) => (
-  <div>
-    <div>good {good}</div>
-    <div>neutral {neutral}</div>
-    <div>bad {bad}</div>
-  </div>
-);
+const Statistics = ({ good, neutral, bad }) => {
+   const total = good + neutral + bad || 0
+
+   if (total === 0) {
+      return <p>No feedback given</p>
+   }
+
+   const averages = (good + bad * -1) / total || 0
+   const positive = (good / total ) * 100 || 0
+
+
+
+   return (
+     <div>
+
+      <div>
+         <div>good {good}</div>
+         <div>neutral {neutral}</div>
+         <div>bad {bad}</div>
+      </div>
+      <div>
+         <div>averages {averages}</div>
+         <div>positive {positive}%</div>
+      </div>
+     </div>
+   );
+}
 
 const App = () => {
   // State hooks for each feedback type
